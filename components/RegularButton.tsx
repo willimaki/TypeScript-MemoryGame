@@ -1,11 +1,11 @@
 import React from 'react';
 
-interface RegularButtonProps {
+interface IRegularButtonProps {
   children: React.ReactNode;
   handleClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-export default function RegularButton({ children, handleClick }: RegularButtonProps) {
+export default function RegularButton({ children, handleClick }: IRegularButtonProps) {
   return (
     <button
       className="btn btn--text"

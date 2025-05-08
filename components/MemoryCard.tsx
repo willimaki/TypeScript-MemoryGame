@@ -1,23 +1,23 @@
 import React from 'react';
 import { decodeEntity } from 'html-entities';
+import EmojiButton from './EmojiButton';
 import { Emoji } from '../src/types';
 
-interface MemoryCardProps {
+interface IMemoryCardProps {
     data : Emoji[],
-    handleClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+    handleClick: (e: React.MouseEvent<HTMLButtonElement>, index:number, emoji:Emoji ) => void;
 }
 
-export default function MemoryCard({data, handleClick }: MemoryCardProps) {
-  const emojiEl = data.map((emoji, index) => (
+export default function MemoryCard({data, handleClick }: IMemoryCardProps) {
+  const cardEl = data.map((emoji, index) => (
     <li key={index} className="card-item">
-      <button
-        className="btn btn--emoji"
-        onClick={handleClick}
-      >
-        {decodeEntity(emoji.htmlCode[0])}
-      </button>
+      <EmojiButton 
+        content={decodeEntity(emoji.htmlCode[0])} 
+        handleClick={(e) => handleClick(e, index, emoji)} 
+        style="btn btn--emoji" >
+      </EmojiButton>
     </li>
   ));
   
-  return <ul className="card-container">{emojiEl}</ul>;
+  return <ul className="card-container">{cardEl}</ul>;
 }

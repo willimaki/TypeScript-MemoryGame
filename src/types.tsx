@@ -5,3 +5,8 @@ export interface Emoji {
     htmlCode: string[],
     unicode: string[]
   }
+
+export interface EmojiCard{
+    index: number, 
+    name:string
+}
