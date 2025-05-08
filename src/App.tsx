@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import Confetti from 'react-confetti';
 import Form from '../components/Form';
 import MemoryCard from '../components/MemoryCard';
 import { Emoji, EmojiCard } from './types';
+import { useWindowSize } from 'react-use';
 
 export default function App() {
 
@@ -10,8 +12,7 @@ export default function App() {
   const [selectedCards, setSelectedCards] = useState<EmojiCard[]>([])
   const [matchedCards, setMatchedCards] = useState<EmojiCard[]>([])
   const [isGameOver, setIsGameOver] = useState<boolean>(false)
-
-  console.log(selectedCards)
+  const {width, height} = useWindowSize()
 
   useEffect( () =>{
     if(selectedCards.length === 2 && selectedCards[0].name === selectedCards[1].name){
@@ -92,7 +93,8 @@ export default function App() {
     <main>
       <h1>Memory</h1>
       {!isGameOn && <Form handleSubmit={startGame} />}
-      {isGameOn && <MemoryCard  handleClick={turnCard} data={emojisData}/>}
+      {isGameOn && <MemoryCard  handleClick={turnCard} data={emojisData} selectedCards={selectedCards} matchedCards={matchedCards}/>}
+      {isGameOver && <Confetti width={width} height={height} />}
     </main>
   );
 }
