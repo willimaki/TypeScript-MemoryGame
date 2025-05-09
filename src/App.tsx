@@ -133,7 +133,7 @@ export default function App() {
       <h1>Memory</h1>
       {!isGameOn && !isError && <Form handleSubmit={startGame} handleChange={handleFormChange} formData={formData} isFirstRender={isFirstRender} />}
       {isGameOn && <AssistiveTechInfo emojisData={emojisData} matchedCards={matchedCards}/>}
-      {isGameOver && <Confetti width={width} height={height} /> && <GameOver handleClick={resetGame}/>}
+      {isGameOver && (<> <Confetti width={width} height={height} /> <GameOver handleClick={resetGame}/> </>)}
       {isGameOn &&  <MemoryCard  handleClick={turnCard} data={emojisData} selectedCards={selectedCards} matchedCards={matchedCards}/>}
       {isError && <ErrorCard handleClick={resetError} />}
       
