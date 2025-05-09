@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Confetti from 'react-confetti';
 import Form from '../components/Form';
+import GameOver from '../components/GameOver'
 import MemoryCard from '../components/MemoryCard';
+import AssistiveTechInfo from '../components/AssistiveTechInfo'
 import { Emoji, EmojiCard } from './types';
 import { useWindowSize } from 'react-use';
 
@@ -26,8 +28,6 @@ export default function App() {
     }
   }
   ,[matchedCards])
-
-
 
   async function startGame(e: React.FormEvent): Promise<void> {
     e.preventDefault();
@@ -59,9 +59,9 @@ export default function App() {
     return dataSlice
   }
 
-  function getRandomIndices(data: Emoji[]): number[] { //function to get 5 unique random numbers within data length
+  function getRandomIndices(data: Emoji[]): number[] { //function to get x unique random numbers within data length
     const randomIndicesArray: Set<number> = new Set<number>
-    while(randomIndicesArray.size < 5){
+    while(randomIndicesArray.size < 2){
       randomIndicesArray.add(Math.floor(Math.random() * data.length))
     }
     return Array.from(randomIndicesArray)
@@ -69,9 +69,10 @@ export default function App() {
 
   function getEmojisArray(data: Emoji[]): Emoji[]{
     const pairedEmojisArray : Emoji[] = [...data, ...data]
+    //Fisher Yates shuffle algorithm :
     for (let i = pairedEmojisArray.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1))
-      const temp = pairedEmojisArray[i]
+      const j: number = Math.floor(Math.random() * (i + 1))
+      const temp: Emoji = pairedEmojisArray[i]
       pairedEmojisArray[i] = pairedEmojisArray[j]
       pairedEmojisArray[j] = temp
   }
@@ -86,15 +87,23 @@ export default function App() {
       }
       return [selectedCard];
     });
-    
+  }
+
+  function resetGame(){
+    setIsGameOn(false)
+    setSelectedCards([])
+    setMatchedCards([])
+    setIsGameOver(false)
   }
   
   return (
     <main>
       <h1>Memory</h1>
       {!isGameOn && <Form handleSubmit={startGame} />}
-      {isGameOn && <MemoryCard  handleClick={turnCard} data={emojisData} selectedCards={selectedCards} matchedCards={matchedCards}/>}
-      {isGameOver && <Confetti width={width} height={height} />}
+      {isGameOn && <AssistiveTechInfo emojisData={emojisData} matchedCards={matchedCards}/>}
+      {isGameOver && <Confetti width={width} height={height} /> && <GameOver handleClick={resetGame}/>}
+      {isGameOn &&  <MemoryCard  handleClick={turnCard} data={emojisData} selectedCards={selectedCards} matchedCards={matchedCards}/>}
+      
     </main>
   );
 }

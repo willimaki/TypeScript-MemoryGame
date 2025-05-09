@@ -1,25 +1,32 @@
 import React from "react";
-import { EmojiCard } from "../src/types";
+import { decodeEntity } from 'html-entities';
+import { Emoji, EmojiCard } from "../src/types";
 
 interface IEmojiButtonProps{
-    content : string,
+    emoji: Emoji
+    index: number
     selectedCardEntry: EmojiCard | undefined  //not sure about undefined
     matchedCardEntry : EmojiCard | undefined
     handleClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-export default function EmojiButton( {content, selectedCardEntry, matchedCardEntry, handleClick }: IEmojiButtonProps): JSX.Element {
-    const btnContent = (selectedCardEntry || matchedCardEntry) ? content : "?"
-    const btnStyle: string =  matchedCardEntry ? "btn--emoji__back--matched" : selectedCardEntry ? "btn--emoji__back--selected" : "btn--emoji__front"
 
+
+export default function EmojiButton( {emoji, index, selectedCardEntry, matchedCardEntry, handleClick }: IEmojiButtonProps): JSX.Element {
+    const btnContent = (selectedCardEntry || matchedCardEntry) ? decodeEntity(emoji.htmlCode[0]) : "?"
+    const btnStyle: string =  matchedCardEntry ? "btn--emoji__back--matched" : selectedCardEntry ? "btn--emoji__back--selected" : "btn--emoji__front"
+    const btnAria = 
+        matchedCardEntry ? `${decodeEntity(emoji.name)}, Matched.` :
+        selectedCardEntry ? `${decodeEntity(emoji.name)}, Not Matched yet.` :
+        "Card upside down."
     return (
         <button 
             className={`btn btn--emoji ${btnStyle}`}
-            onClick={handleClick}
+            onClick={selectedCardEntry ? undefined : handleClick}
+            disabled = {!!matchedCardEntry}
+            aria-label={`Card number ${index + 1}: ${btnAria}`}
         >
             {btnContent}
         </button>
     )
-      
-     
 }
