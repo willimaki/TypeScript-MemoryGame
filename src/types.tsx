@@ -1,4 +1,4 @@
-export interface Emoji {
+export interface IEmoji {
     name: string,
     category: string,
     group: string,
@@ -6,7 +6,27 @@ export interface Emoji {
     unicode: string[]
   }
 
-export interface EmojiCard{
+export interface IEmojiCard {
     index: number, 
-    name:string
+    name: string
+}
+
+type FormDataCategory = {
+    name: string,
+    value: string
+}
+
+type FormDataNumber = {
+    value: string
+}
+
+
+export interface IFormData {
+    category: FormDataCategory[],
+    number: FormDataNumber[]
+}
+
+export interface IFormDataSelection{
+    category:string,
+    number:number
 }

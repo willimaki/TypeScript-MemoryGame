@@ -1,8 +1,8 @@
-import { Emoji, EmojiCard } from "../src/types";
+import { IEmoji, IEmojiCard } from "../src/types";
 
 interface IAssistiveTechInfoProps{
-    emojisData: Emoji[]
-    matchedCards: EmojiCard[]
+    emojisData: IEmoji[]
+    matchedCards: IEmojiCard[]
 }
 
 export default function AssistiveTechInfo({emojisData, matchedCards}:IAssistiveTechInfoProps):JSX.Element{

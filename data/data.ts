@@ -1,4 +1,6 @@
-const data = {
+import { IFormData } from '../src/types.tsx'
+
+export const data: IFormData = {
     category: [
         {
             name: "Animals and nature",
@@ -23,6 +25,12 @@ const data = {
     ],
     number: [
         {
+            value: "2"
+        },
+        {
+            value: "5"
+        },
+        {
             value: "10"
         },
         {
@@ -39,5 +47,3 @@ const data = {
         },
     ]
 }
-
-export { data }

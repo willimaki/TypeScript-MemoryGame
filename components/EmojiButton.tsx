@@ -1,12 +1,12 @@
 import React from "react";
 import { decodeEntity } from 'html-entities';
-import { Emoji, EmojiCard } from "../src/types";
+import { IEmoji, IEmojiCard } from "../src/types";
 
 interface IEmojiButtonProps{
-    emoji: Emoji
+    emoji: IEmoji
     index: number
-    selectedCardEntry: EmojiCard | undefined  //not sure about undefined
-    matchedCardEntry : EmojiCard | undefined
+    selectedCardEntry: IEmojiCard | undefined  //not sure about undefined
+    matchedCardEntry : IEmojiCard | undefined
     handleClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 

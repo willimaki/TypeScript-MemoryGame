@@ -1,19 +1,19 @@
 import React from 'react';
 import EmojiButton from './EmojiButton';
-import { Emoji, EmojiCard } from '../src/types';
+import { IEmoji, IEmojiCard } from '../src/types';
 
 interface IMemoryCardProps {
-    data : Emoji[],
-    selectedCards: EmojiCard[]
-    matchedCards: EmojiCard[]
+    data : IEmoji[],
+    selectedCards: IEmojiCard[]
+    matchedCards: IEmojiCard[]
 
-    handleClick: (e: React.MouseEvent<HTMLButtonElement>, index:number, emoji:Emoji ) => void;
+    handleClick: (e: React.MouseEvent<HTMLButtonElement>, index:number, emoji:IEmoji ) => void;
 }
 
 export default function MemoryCard({data, handleClick, selectedCards, matchedCards }: IMemoryCardProps) {
   const cardEl: JSX.Element[] = data.map((emoji, index) => {
-    const selectedCardEntry: EmojiCard | undefined  = selectedCards.find(emoji => emoji.index === index)
-    const matchedCardEntry: EmojiCard | undefined = matchedCards.find(emoji => emoji.index === index)
+    const selectedCardEntry: IEmojiCard | undefined  = selectedCards.find(emoji => emoji.index === index)
+    const matchedCardEntry: IEmojiCard | undefined = matchedCards.find(emoji => emoji.index === index)
     const cardStyle: string = matchedCardEntry ? "card-item--matched" : selectedCardEntry ? "card-item--selected"  : ""
 
     return (

@@ -7,10 +7,7 @@ interface IRegularButtonProps {
 
 export default function RegularButton({ children, handleClick }: IRegularButtonProps) {
   return (
-    <button
-      className="btn btn--text"
-      onClick={handleClick}
-    >
+    <button className="btn btn--text" onClick={handleClick}>
       {children}
     </button>
   );
